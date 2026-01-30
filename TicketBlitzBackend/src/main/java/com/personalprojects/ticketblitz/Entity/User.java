@@ -8,22 +8,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name="ticket_blitz_user")
+@Table(name = "ticket_blitz_user")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User extends BaseModel{
-    @Column(nullable = false)
-    private String name;
+public class User extends BaseModel {
+  @Column(nullable = false)
+  private String name;
 
-    @Column(nullable = false, unique = true)
-    private String userName;
+  @Column(nullable = false, unique = true)
+  private String userName;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+  @Column(nullable = false, unique = true)
+  private String email;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false)
+  private String password;
 }

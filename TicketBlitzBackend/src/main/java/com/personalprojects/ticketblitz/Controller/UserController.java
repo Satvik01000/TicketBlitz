@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private final UserService userService;
+  private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService=userService;
-    }
+  public UserController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping
-    LoginResponseDTO login(@RequestBody LoginRequestDTO loginRequestDTO){
-        return userService.logIn(loginRequestDTO);
-    }
+  @PostMapping("/login")
+  LoginResponseDTO login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    return userService.logIn(loginRequestDTO);
+  }
 }
