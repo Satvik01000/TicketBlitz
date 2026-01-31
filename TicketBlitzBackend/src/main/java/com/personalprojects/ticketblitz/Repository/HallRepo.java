@@ -1,7 +1,11 @@
 package com.personalprojects.ticketblitz.Repository;
 
 import com.personalprojects.ticketblitz.Entity.Hall;
+
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface HallRepo extends JpaRepository<Hall, UUID> {}
+public interface HallRepo extends JpaRepository<Hall, UUID> {
+    List<Hall> findByCinemaId(UUID cinemaId);
+}
