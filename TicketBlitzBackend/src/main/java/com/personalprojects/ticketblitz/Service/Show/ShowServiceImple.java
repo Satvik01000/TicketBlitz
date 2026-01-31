@@ -4,6 +4,7 @@ import com.personalprojects.ticketblitz.DTO.Request.ShowCreationRequestDTO;
 import com.personalprojects.ticketblitz.Entity.Hall;
 import com.personalprojects.ticketblitz.Entity.Movie;
 import com.personalprojects.ticketblitz.Entity.Show;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.HallRepo;
 import com.personalprojects.ticketblitz.Repository.MovieRepo;
 import com.personalprojects.ticketblitz.Repository.ShowRepo;
@@ -25,15 +26,11 @@ public class ShowServiceImple implements ShowService {
 
   @Override
   public Show createShow(ShowCreationRequestDTO dto) {
-    Movie movie =
-        movieRepo
-            .findById(dto.getMovieId())
-            .orElseThrow(() -> new RuntimeException("Movie not found"));
+    Movie movie = movieRepo.findById(dto.getMovieId())
+            .orElseThrow(() -> new NotFoundException("Movie not found"));
 
-    Hall hall =
-        hallRepo
-            .findById(dto.getHallId())
-            .orElseThrow(() -> new RuntimeException("Hall not found"));
+    Hall hall = hallRepo.findById(dto.getHallId())
+            .orElseThrow(() -> new NotFoundException("Hall not found"));
 
     Show show = new Show();
     show.setMovie(movie);
@@ -46,7 +43,7 @@ public class ShowServiceImple implements ShowService {
 
   @Override
   public Show getShowById(UUID showId) {
-    return showRepo.findById(showId).orElseThrow(() -> new RuntimeException("Show not found"));
+    return showRepo.findById(showId).orElseThrow(() -> new NotFoundException("Show not found"));
   }
 
   @Override

@@ -18,9 +18,8 @@ public class UserController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-
-    LoginResponseDTO response = userService.logIn(loginRequestDTO);
+  public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
+    LoginResponseDTO response = userService.logIn(dto);
 
     if (response.getToken().startsWith("Fail")) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);

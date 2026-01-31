@@ -2,6 +2,8 @@ package com.personalprojects.ticketblitz.Controller;
 
 import com.personalprojects.ticketblitz.Entity.Cinema;
 import com.personalprojects.ticketblitz.Service.Cinema.CinemaService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,17 +20,19 @@ public class CinemaController {
     }
 
     @PostMapping
-    public Cinema create(@RequestBody Cinema cinema) {
-        return cinemaService.createCinema(cinema);
+    public ResponseEntity<Cinema> create(@RequestBody Cinema cinema) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(cinemaService.createCinema(cinema));
     }
 
     @GetMapping
-    public List<Cinema> all() {
-        return cinemaService.getAllCinemas();
+    public ResponseEntity<List<Cinema>> all() {
+        return ResponseEntity.ok(cinemaService.getAllCinemas());
     }
 
     @GetMapping("/{id}")
-    public Cinema get(@PathVariable UUID id) {
-        return cinemaService.getCinema(id);
+    public ResponseEntity<Cinema> get(@PathVariable UUID id) {
+        return ResponseEntity.ok(cinemaService.getCinema(id));
     }
 }
+

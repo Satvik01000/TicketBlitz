@@ -1,6 +1,7 @@
 package com.personalprojects.ticketblitz.Service.Cinema;
 
 import com.personalprojects.ticketblitz.Entity.Cinema;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.CinemaRepo;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,6 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public Cinema getCinema(UUID id) {
         return cinemaRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Cinema not found"));
+                .orElseThrow(() -> new NotFoundException("Cinema not found"));
     }
 }
