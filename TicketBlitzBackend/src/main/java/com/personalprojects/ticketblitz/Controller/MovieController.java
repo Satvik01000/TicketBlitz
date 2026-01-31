@@ -5,6 +5,7 @@ import com.personalprojects.ticketblitz.Entity.Movie;
 import com.personalprojects.ticketblitz.Service.Movie.MovieService;
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,15 @@ public class MovieController {
 
   @PostMapping
   public ResponseEntity<Movie> addMovie(@RequestBody MovieCreationRequestDTO dto) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(movieService.addMovie(dto));
+    return ResponseEntity.status(HttpStatus.CREATED)
+            .body(movieService.addMovie(dto));
   }
 
   @PutMapping("/{movieId}")
   public ResponseEntity<Movie> updateMovie(
-      @PathVariable UUID movieId, @RequestBody MovieCreationRequestDTO dto) {
+          @PathVariable UUID movieId,
+          @RequestBody MovieCreationRequestDTO dto
+  ) {
     return ResponseEntity.ok(movieService.updateMovie(movieId, dto));
   }
 
