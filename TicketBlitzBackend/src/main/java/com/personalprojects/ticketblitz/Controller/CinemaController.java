@@ -8,16 +8,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cinema")
 public class CinemaController {
 
-    private final CinemaService cinemaService;
+  private final CinemaService cinemaService;
 
-    public CinemaController(CinemaService cinemaService) {
-        this.cinemaService = cinemaService;
-    }
+  public CinemaController(CinemaService cinemaService) {
+    this.cinemaService = cinemaService;
+  }
 
     @PostMapping
     public ResponseEntity<Cinema> create(@RequestBody Cinema cinema) {

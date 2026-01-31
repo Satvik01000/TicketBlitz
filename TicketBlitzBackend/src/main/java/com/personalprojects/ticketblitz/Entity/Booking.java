@@ -2,7 +2,6 @@ package com.personalprojects.ticketblitz.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,15 +27,14 @@ public class Booking extends BaseModel {
   private LocalDateTime bookedAt;
 
   public Booking(User user, Show show, Seat seat, BookingStatus status) {
-    this.user=user;
-    this.show=show;
-    this.seat=seat;
-    this.status=status;
+    this.user = user;
+    this.show = show;
+    this.seat = seat;
+    this.status = status;
   }
 
   @PrePersist
   protected void onCreate() {
     this.bookedAt = LocalDateTime.now();
   }
-
 }
