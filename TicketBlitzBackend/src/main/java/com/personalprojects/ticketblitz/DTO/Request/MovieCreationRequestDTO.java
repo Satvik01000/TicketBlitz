@@ -1,18 +1,12 @@
-package com.personalprojects.ticketblitz.Entity;
+package com.personalprojects.ticketblitz.DTO.Request;
 
-import jakarta.persistence.Entity;
 import java.time.LocalDate;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-public class Movie extends BaseModel {
+public class MovieCreationRequestDTO {
   private String title;
 
   private String description;
