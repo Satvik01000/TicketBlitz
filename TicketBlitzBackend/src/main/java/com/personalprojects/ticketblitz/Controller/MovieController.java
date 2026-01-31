@@ -5,6 +5,8 @@ import com.personalprojects.ticketblitz.Entity.Movie;
 import com.personalprojects.ticketblitz.Service.Movie.MovieService;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,27 +20,29 @@ public class MovieController {
   }
 
   @PostMapping
-  public Movie addMovie(@RequestBody MovieCreationRequestDTO dto) {
-    return movieService.addMovie(dto);
+  public ResponseEntity<Movie> addMovie(@RequestBody MovieCreationRequestDTO dto) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(movieService.addMovie(dto));
   }
 
   @PutMapping("/{movieId}")
-  public Movie updateMovie(@PathVariable UUID movieId, @RequestBody MovieCreationRequestDTO dto) {
-    return movieService.updateMovie(movieId, dto);
+  public ResponseEntity<Movie> updateMovie(
+      @PathVariable UUID movieId, @RequestBody MovieCreationRequestDTO dto) {
+    return ResponseEntity.ok(movieService.updateMovie(movieId, dto));
   }
 
   @DeleteMapping("/{movieId}")
-  public void deleteMovie(@PathVariable UUID movieId) {
+  public ResponseEntity<Void> deleteMovie(@PathVariable UUID movieId) {
     movieService.deleteMovie(movieId);
+    return ResponseEntity.noContent().build();
   }
 
   @GetMapping("/{movieId}")
-  public Movie getMovie(@PathVariable UUID movieId) {
-    return movieService.getMovieById(movieId);
+  public ResponseEntity<Movie> getMovie(@PathVariable UUID movieId) {
+    return ResponseEntity.ok(movieService.getMovieById(movieId));
   }
 
   @GetMapping
-  public List<Movie> getAllMovies() {
-    return movieService.getAllMovies();
+  public ResponseEntity<List<Movie>> getAllMovies() {
+    return ResponseEntity.ok(movieService.getAllMovies());
   }
 }

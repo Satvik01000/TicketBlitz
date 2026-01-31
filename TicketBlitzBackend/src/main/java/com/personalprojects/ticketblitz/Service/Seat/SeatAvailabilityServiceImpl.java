@@ -2,6 +2,7 @@ package com.personalprojects.ticketblitz.Service.Seat;
 
 import com.personalprojects.ticketblitz.DTO.Response.SeatAvailabilityResponseDTO;
 import com.personalprojects.ticketblitz.Entity.*;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.BookingRepo;
 import com.personalprojects.ticketblitz.Repository.SeatRepo;
 import com.personalprojects.ticketblitz.Repository.ShowRepo;
@@ -23,7 +24,8 @@ public class SeatAvailabilityServiceImpl implements SeatAvailabilityService {
 
   @Override
   public SeatAvailabilityResponseDTO seatAvailability(UUID showId) {
-    Show show = showRepo.findById(showId).orElseThrow(() -> new RuntimeException("Show not found"));
+    Show show =
+        showRepo.findById(showId).orElseThrow(() -> new NotFoundException("Show not found"));
     UUID hallId = show.getHall().getId();
 
     List<Seat> allSeats = seatRepo.findByHallId(hallId);

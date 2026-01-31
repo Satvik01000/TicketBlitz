@@ -2,6 +2,7 @@ package com.personalprojects.ticketblitz.Service.Movie;
 
 import com.personalprojects.ticketblitz.DTO.Request.MovieCreationRequestDTO;
 import com.personalprojects.ticketblitz.Entity.Movie;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.MovieRepo;
 import java.util.List;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class MovieServiceImple implements MovieService {
   public Movie updateMovie(UUID movieId, MovieCreationRequestDTO dto) {
 
     Movie movie =
-        movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
+        movieRepo.findById(movieId).orElseThrow(() -> new NotFoundException("Movie not found"));
 
     mapDtoToMovie(dto, movie);
 
@@ -39,7 +40,7 @@ public class MovieServiceImple implements MovieService {
   @Override
   public void deleteMovie(UUID movieId) {
     if (!movieRepo.existsById(movieId)) {
-      throw new RuntimeException("Movie not found");
+      throw new NotFoundException("Movie not found");
     }
 
     movieRepo.deleteById(movieId);
@@ -48,7 +49,7 @@ public class MovieServiceImple implements MovieService {
   @Override
   public Movie getMovieById(UUID movieId) {
 
-    return movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie not found"));
+    return movieRepo.findById(movieId).orElseThrow(() -> new NotFoundException("Movie not found"));
   }
 
   @Override

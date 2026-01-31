@@ -5,6 +5,8 @@ import com.personalprojects.ticketblitz.Entity.Show;
 import com.personalprojects.ticketblitz.Service.Show.ShowService;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,22 +20,22 @@ public class ShowController {
   }
 
   @PostMapping
-  public Show createShow(@RequestBody ShowCreationRequestDTO dto) {
-    return showService.createShow(dto);
+  public ResponseEntity<Show> createShow(@RequestBody ShowCreationRequestDTO dto) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(showService.createShow(dto));
   }
 
   @GetMapping("/{showId}")
-  public Show getShow(@PathVariable UUID showId) {
-    return showService.getShowById(showId);
+  public ResponseEntity<Show> getShow(@PathVariable UUID showId) {
+    return ResponseEntity.ok(showService.getShowById(showId));
   }
 
   @GetMapping("/movie/{movieId}")
-  public List<Show> getShowsByMovie(@PathVariable UUID movieId) {
-    return showService.getShowsByMovie(movieId);
+  public ResponseEntity<List<Show>> getShowsByMovie(@PathVariable UUID movieId) {
+    return ResponseEntity.ok(showService.getShowsByMovie(movieId));
   }
 
   @GetMapping
-  public List<Show> getAllShows() {
-    return showService.getAllShows();
+  public ResponseEntity<List<Show>> getAllShows() {
+    return ResponseEntity.ok(showService.getAllShows());
   }
 }
