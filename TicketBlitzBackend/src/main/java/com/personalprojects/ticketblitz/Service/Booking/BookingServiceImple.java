@@ -2,6 +2,8 @@ package com.personalprojects.ticketblitz.Service.Booking;
 
 import com.personalprojects.ticketblitz.DTO.Request.BookingCreationRequestDTO;
 import com.personalprojects.ticketblitz.Entity.*;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
+import com.personalprojects.ticketblitz.Exceptions.SeatAlreadyBookedException;
 import com.personalprojects.ticketblitz.Repository.BookingRepo;
 import com.personalprojects.ticketblitz.Repository.SeatRepo;
 import com.personalprojects.ticketblitz.Repository.ShowRepo;
@@ -31,14 +33,14 @@ public class BookingServiceImple implements BookingService{
         UUID userId = dto.getUserId();
         UUID showId = dto.getShowId();
         UUID seatId = dto.getSeatId();
-        User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not Found"));
-        Show show = showRepo.findById(showId).orElseThrow(() -> new RuntimeException("Show not Found"));
-        Seat seat = seatRepo.findById(seatId).orElseThrow(() -> new RuntimeException("Seat not Found"));
+        User user = userRepo.findById(userId).orElseThrow(() -> new NotFoundException("User not Found"));
+        Show show = showRepo.findById(showId).orElseThrow(() -> new NotFoundException("Show not Found"));
+        Seat seat = seatRepo.findById(seatId).orElseThrow(() -> new NotFoundException("Seat not Found"));
         try {
             Booking booking = new Booking(user, show, seat, BookingStatus.CONFIRMED);
             return bookingRepo.save(booking);
         } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException("Seat already booked for this show");
+            throw new SeatAlreadyBookedException("Seat already booked for this show");
         }
 
     }
