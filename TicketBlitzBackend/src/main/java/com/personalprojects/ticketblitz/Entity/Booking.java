@@ -11,11 +11,14 @@ import lombok.Setter;
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"show_id", "seat_id"})})
 public class Booking extends BaseModel {
 
-  @ManyToOne private User user;
+  @ManyToOne
+  private User user;
 
-  @ManyToOne private Show show;
+  @ManyToOne
+  private Show show;
 
-  @ManyToOne private Seat seat;
+  @ManyToOne
+  private Seat seat;
 
   @Enumerated(EnumType.STRING)
   private BookingStatus status;
