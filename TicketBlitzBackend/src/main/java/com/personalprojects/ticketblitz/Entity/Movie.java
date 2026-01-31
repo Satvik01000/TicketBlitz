@@ -2,7 +2,6 @@ package com.personalprojects.ticketblitz.Entity;
 
 import jakarta.persistence.Entity;
 import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 public class Movie extends BaseModel {
-
   private String title;
 
   private String description;

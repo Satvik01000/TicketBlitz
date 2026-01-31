@@ -23,9 +23,7 @@ public class UserController {
     LoginResponseDTO response = userService.logIn(loginRequestDTO);
 
     if (response.getToken().startsWith("Fail")) {
-      return ResponseEntity
-              .status(HttpStatus.UNAUTHORIZED)
-              .body(response);
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
     return ResponseEntity.ok(response);

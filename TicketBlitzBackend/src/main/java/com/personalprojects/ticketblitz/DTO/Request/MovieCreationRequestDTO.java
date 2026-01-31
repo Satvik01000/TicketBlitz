@@ -1,26 +1,25 @@
 package com.personalprojects.ticketblitz.DTO.Request;
 
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
 
 @Getter
 @Setter
 public class MovieCreationRequestDTO {
-    private String title;
+  private String title;
 
-    private String description;
+  private String description;
 
-    private int durationMinutes;
+  private int durationMinutes;
 
-    private String language;
+  private String language;
 
-    private LocalDate releaseDate;
+  private LocalDate releaseDate;
 
-    private String genre;
+  private String genre;
 
-    private double rating;
+  private double rating;
 
-    private String posterUrl;
+  private String posterUrl;
 }
