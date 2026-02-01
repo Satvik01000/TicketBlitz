@@ -20,10 +20,13 @@ public class UserServiceImple implements UserService {
   private final AuthenticationManager authenticationManager;
   private final BCryptPasswordEncoder passwordEncoder;
 
-  public UserServiceImple(UserRepo userRepo, AuthenticationManager authenticationManager, BCryptPasswordEncoder passwordEncoder) {
+  public UserServiceImple(
+      UserRepo userRepo,
+      AuthenticationManager authenticationManager,
+      BCryptPasswordEncoder passwordEncoder) {
     this.userRepo = userRepo;
     this.authenticationManager = authenticationManager;
-      this.passwordEncoder = passwordEncoder;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
@@ -43,7 +46,7 @@ public class UserServiceImple implements UserService {
 
   @Override
   public SignUpResponseDTO signUp(SignupRequestDTO requestDTO) {
-    if(userRepo.findUserByUserName(requestDTO.getUserName()).isPresent()) {
+    if (userRepo.findUserByUserName(requestDTO.getUserName()).isPresent()) {
       throw new AlreadyExistsException("User already exists");
     }
 
@@ -54,11 +57,6 @@ public class UserServiceImple implements UserService {
     user.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
 
     userRepo.save(user);
-    return new SignUpResponseDTO(
-            user.getId(),
-            user.getName(),
-            user.getUserName(),
-            user.getEmail()
-    );
+    return new SignUpResponseDTO(user.getId(), user.getName(), user.getUserName(), user.getEmail());
   }
 }

@@ -7,5 +7,6 @@ import com.personalprojects.ticketblitz.DTO.Response.SignUpResponseDTO;
 
 public interface UserService {
   LoginResponseDTO logIn(LoginRequestDTO requestDTO);
+
   SignUpResponseDTO signUp(SignupRequestDTO requestDTO);
 }

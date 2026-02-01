@@ -18,15 +18,15 @@ public class UserController {
   public UserController(UserService userService) {
     this.userService = userService;
   }
-  
+
   @PostMapping("/signup")
   public ResponseEntity<SignUpResponseDTO> signup(@RequestBody SignupRequestDTO dto) {
     SignUpResponseDTO response = userService.signUp(dto);
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
-  //TODO Implement RBAC
-  //TODO Implement JWT both access and refresh token
+  // TODO Implement RBAC
+  // TODO Implement JWT both access and refresh token
   @PostMapping("/login")
   public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
     LoginResponseDTO response = userService.logIn(dto);
