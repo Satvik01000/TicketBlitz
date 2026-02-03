@@ -6,6 +6,7 @@ import com.personalprojects.ticketblitz.DTO.Response.LoginResponseDTO;
 import com.personalprojects.ticketblitz.DTO.Response.SignUpResponseDTO;
 import com.personalprojects.ticketblitz.Entity.User;
 import com.personalprojects.ticketblitz.Exceptions.AlreadyExistsException;
+import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.UserRepo;
 import com.personalprojects.ticketblitz.Service.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,7 +44,7 @@ public class UserServiceImple implements UserService {
       User user =
           userRepo
               .findUserByUserName(loginRequestDTO.getUserName())
-              .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
+              .orElseThrow(() -> new NotFoundException("Invalid email or password."));
 
       String jwtToken = jwtService.generateToken(user);
       return new LoginResponseDTO(jwtToken);
