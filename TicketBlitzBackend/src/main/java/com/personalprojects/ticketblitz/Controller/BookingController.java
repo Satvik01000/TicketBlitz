@@ -14,20 +14,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/booking")
 public class BookingController {
 
-    private final BookingService bookingService;
-
   private final BookingService bookingService;
 
   public BookingController(BookingService bookingService) {
     this.bookingService = bookingService;
   }
 
-    @PostMapping
-    public ResponseEntity<Booking> createBooking(
-            @RequestBody BookingCreationRequestDTO dto
-    ) {
-        Booking booking = bookingService.createBooking(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(booking);
-    }
+  @PostMapping
+  public ResponseEntity<Booking> createBooking(@RequestBody BookingCreationRequestDTO dto) {
+    Booking booking = bookingService.createBooking(dto);
+    return ResponseEntity.status(HttpStatus.CREATED).body(booking);
+  }
 }
-

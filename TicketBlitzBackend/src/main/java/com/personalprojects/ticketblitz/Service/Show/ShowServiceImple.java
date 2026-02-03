@@ -26,10 +26,14 @@ public class ShowServiceImple implements ShowService {
 
   @Override
   public Show createShow(ShowCreationRequestDTO dto) {
-    Movie movie = movieRepo.findById(dto.getMovieId())
+    Movie movie =
+        movieRepo
+            .findById(dto.getMovieId())
             .orElseThrow(() -> new NotFoundException("Movie not found"));
 
-    Hall hall = hallRepo.findById(dto.getHallId())
+    Hall hall =
+        hallRepo
+            .findById(dto.getHallId())
             .orElseThrow(() -> new NotFoundException("Hall not found"));
 
     Show show = new Show();

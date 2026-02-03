@@ -5,7 +5,6 @@ import com.personalprojects.ticketblitz.Entity.Show;
 import com.personalprojects.ticketblitz.Service.Show.ShowService;
 import java.util.List;
 import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,7 @@ public class ShowController {
 
   @PostMapping
   public ResponseEntity<Show> createShow(@RequestBody ShowCreationRequestDTO dto) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-            .body(showService.createShow(dto));
+    return ResponseEntity.status(HttpStatus.CREATED).body(showService.createShow(dto));
   }
 
   @GetMapping("/{showId}")

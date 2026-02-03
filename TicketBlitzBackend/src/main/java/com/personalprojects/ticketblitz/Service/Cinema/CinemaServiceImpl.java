@@ -26,9 +26,8 @@ public class CinemaServiceImpl implements CinemaService {
     return cinemaRepo.findAll();
   }
 
-    @Override
-    public Cinema getCinema(UUID id) {
-        return cinemaRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("Cinema not found"));
-    }
+  @Override
+  public Cinema getCinema(UUID id) {
+    return cinemaRepo.findById(id).orElseThrow(() -> new NotFoundException("Cinema not found"));
+  }
 }
