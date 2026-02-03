@@ -25,8 +25,6 @@ public class UserController {
     return ResponseEntity.status(HttpStatus.CREATED).body(response);
   }
 
-  // TODO Implement RBAC
-  // TODO Implement JWT both access and refresh token
   @PostMapping("/login")
   public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO dto) {
     LoginResponseDTO response = userService.logIn(dto);
