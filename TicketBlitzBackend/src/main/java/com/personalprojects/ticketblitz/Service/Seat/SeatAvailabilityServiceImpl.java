@@ -24,8 +24,7 @@ public class SeatAvailabilityServiceImpl implements SeatAvailabilityService {
 
   @Override
   public SeatAvailabilityResponseDTO seatAvailability(UUID showId) {
-    Show show =
-        showRepo.findById(showId).orElseThrow(() -> new NotFoundException("Show not found"));
+    Show show = showRepo.findById(showId).orElseThrow(() -> new NotFoundException("Show not found"));
     UUID hallId = show.getHall().getId();
 
     List<Seat> allSeats = seatRepo.findByHallId(hallId);
