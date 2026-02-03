@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -33,11 +33,13 @@ public class User extends BaseModel implements UserDetails {
   private String password;
 
   @Override
+  @NonNull
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return List.of();
   }
 
   @Override
+  @NonNull
   public String getUsername() {
     return userName;
   }
