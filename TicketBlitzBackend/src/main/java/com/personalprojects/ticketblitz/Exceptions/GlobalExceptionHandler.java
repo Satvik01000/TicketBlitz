@@ -1,7 +1,9 @@
 package com.personalprojects.ticketblitz.Exceptions;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -14,12 +16,17 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(SeatAlreadyBookedException.class)
-  public ResponseEntity<String> handleConflict(SeatAlreadyBookedException ex) {
+  public ResponseEntity<String> handleSeatAlreadyBookedException(SeatAlreadyBookedException ex) {
     return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
   }
 
   @ExceptionHandler(Exception.class)
   public ResponseEntity<String> handleGeneral(Exception ex) {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+  }
+
+  @ExceptionHandler(JwtException.class)
+  public ResponseEntity<String> handleJwtException(JwtException ex) {
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Token: " + ex.getMessage());
   }
 }
