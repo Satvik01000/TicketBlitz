@@ -42,7 +42,7 @@ public class BookingServiceImple implements BookingService {
         seatRepo.findById(seatId).orElseThrow(() -> new NotFoundException("Seat not Found"));
     try {
       Booking booking = new Booking(user, show, seat, BookingStatus.CONFIRMED);
-      return bookingRepo.save(booking);
+      return bookingRepo.saveAndFlush(booking);
     } catch (DataIntegrityViolationException e) {
       throw new SeatAlreadyBookedException("Seat already booked for this show");
     }
