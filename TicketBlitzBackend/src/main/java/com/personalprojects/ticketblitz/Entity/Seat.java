@@ -12,6 +12,7 @@ import lombok.Setter;
 @Entity
 public class Seat extends BaseModel {
   private String seatNumber;
+  private Double price;
 
   @Enumerated(EnumType.STRING)
   private SeatType seatType;
