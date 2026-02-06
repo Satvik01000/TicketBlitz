@@ -70,4 +70,41 @@ public class BookingServiceImple implements BookingService {
       throw e;
     }
   }
+
+  @Transactional
+  @Override
+  public void confirmBooking(UUID bookingId) {
+    Booking booking =
+        bookingRepo
+            .findById(bookingId)
+            .orElseThrow(() -> new NotFoundException("Booking not found"));
+
+    if (booking.getStatus() == BookingStatus.CONFIRMED) {
+      return;
+    }
+
+    booking.setStatus(BookingStatus.CONFIRMED);
+    bookingRepo.save(booking);
+
+    redisLockService.releaseLock(
+        booking.getShow().getId(), booking.getSeat().getId(), booking.getUser().getId());
+  }
+
+  @Transactional
+  @Override
+  public void cancelBooking(UUID bookingId) {
+    Booking booking =
+        bookingRepo
+            .findById(bookingId)
+            .orElseThrow(() -> new NotFoundException("Booking not found"));
+
+    if (booking.getStatus() == BookingStatus.CONFIRMED) {
+      return;
+    }
+
+    bookingRepo.deleteById(bookingId);
+
+    redisLockService.releaseLock(
+        booking.getShow().getId(), booking.getSeat().getId(), booking.getUser().getId());
+  }
 }
