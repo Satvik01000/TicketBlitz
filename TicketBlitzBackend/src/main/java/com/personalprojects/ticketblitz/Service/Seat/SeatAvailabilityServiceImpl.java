@@ -29,14 +29,13 @@ public class SeatAvailabilityServiceImpl implements SeatAvailabilityService {
     UUID hallId = show.getHall().getId();
 
     List<Seat> allSeats = seatRepo.findByHallId(hallId);
-    List<Booking> booked = bookingRepo.findByShowIdAndStatus(showId, BookingStatus.CONFIRMED);
+    List<Seat> occupiedSeats = bookingRepo.findBookedSeatsByShowId(showId);
 
     Set<UUID> bookedSet = new HashSet<>();
-    for (Booking b : booked) {
-      bookedSet.add(b.getSeat().getId());
+    for (Seat seats : occupiedSeats) {
+      bookedSet.add(seats.getId());
     }
 
-    List<Seat> occupiedSeats = new ArrayList<>();
     List<Seat> emptySeat = new ArrayList<>();
 
     for (Seat s : allSeats) {
