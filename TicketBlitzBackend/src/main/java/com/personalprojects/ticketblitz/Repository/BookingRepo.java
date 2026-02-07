@@ -15,11 +15,11 @@ public interface BookingRepo extends JpaRepository<Booking, UUID> {
   List<Booking> findByShowIdAndStatus(UUID showId, BookingStatus status);
 
   @Query(
-      "SELECT b.seat "
+      "SELECT b.seat.id "
           + "FROM Booking b "
           + "WHERE b.show.id=:showId "
           + "AND b.status IN ('CONFIRMED', 'PENDING')")
-  List<Seat> findBookedSeatsByShowId(@Param("showId") UUID showId);
+  List<UUID> findBookedSeatsByShowId(@Param("showId") UUID showId);
 
   boolean existsByShowAndSeatAndStatus(Show show, Seat seat, BookingStatus bookingStatus);
 
