@@ -13,4 +13,10 @@ public interface BookingService {
 
   @Transactional
   void cancelBooking(UUID bookingId);
+
+  // This method MUST be part of the Interface (BookingService)
+  // for the proxy to work if you are using Interface-based projection,
+  // OR just public if using Class-based proxy.
+  @Transactional
+  Booking createBookingTransactional(UUID userId, UUID showId, UUID seatId);
 }
