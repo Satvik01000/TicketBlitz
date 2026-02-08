@@ -6,6 +6,7 @@ import com.personalprojects.ticketblitz.Exceptions.NotFoundException;
 import com.personalprojects.ticketblitz.Repository.BookingRepo;
 import com.personalprojects.ticketblitz.Repository.SeatRepo;
 import com.personalprojects.ticketblitz.Repository.ShowRepo;
+import com.personalprojects.ticketblitz.Service.RedisCacheService;
 import java.util.*;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +15,17 @@ public class SeatAvailabilityServiceImpl implements SeatAvailabilityService {
   private final SeatRepo seatRepo;
   private final BookingRepo bookingRepo;
   private final ShowRepo showRepo;
+  private final RedisCacheService redisCacheService;
 
   public SeatAvailabilityServiceImpl(
-      SeatRepo seatRepo, BookingRepo bookingRepo, ShowRepo showRepo) {
+      SeatRepo seatRepo,
+      BookingRepo bookingRepo,
+      ShowRepo showRepo,
+      RedisCacheService redisCacheService) {
     this.seatRepo = seatRepo;
     this.bookingRepo = bookingRepo;
     this.showRepo = showRepo;
+    this.redisCacheService = redisCacheService;
   }
 
   @Override
@@ -29,15 +35,21 @@ public class SeatAvailabilityServiceImpl implements SeatAvailabilityService {
     UUID hallId = show.getHall().getId();
 
     List<Seat> allSeats = seatRepo.findByHallId(hallId);
-    List<UUID> occupiedSeatIds = bookingRepo.findBookedSeatsByShowId(showId);
+    Set<UUID> occupiedIds = redisCacheService.getBookedSeatIds(showId);
+    if (occupiedIds == null) {
+      List<UUID> dbIds = bookingRepo.findBookedSeatsByShowId(showId);
+      occupiedIds = new HashSet<>(dbIds);
 
-    Set<UUID> bookedSet = new HashSet<>(occupiedSeatIds);
+      if (!occupiedIds.isEmpty()) {
+        redisCacheService.populateCache(showId, occupiedIds);
+      }
+    }
 
     List<Seat> occupiedSeats = new ArrayList<>();
     List<Seat> emptySeat = new ArrayList<>();
 
     for (Seat s : allSeats) {
-      if (bookedSet.contains(s.getId())) {
+      if (occupiedIds.contains(s.getId())) {
         occupiedSeats.add(s);
       } else {
         emptySeat.add(s);
