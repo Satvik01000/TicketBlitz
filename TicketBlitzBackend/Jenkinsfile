@@ -1,18 +1,17 @@
 pipeline {
     agent any
 
-    tools {
-    }
-
     stages {
-        stage('Build') {
+        stage('Build with Maven') {
             steps {
-                sh "mvn clean package -DskipTests"
+                sh 'mvn clean package -DskipTests'
             }
-
             post {
                 success {
-                    sh"Successfully built the project"
+                    echo 'Maven build successful'
+                }
+                failure {
+                    echo 'Maven build failed'
                 }
             }
         }
