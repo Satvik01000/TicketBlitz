@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+
+    tools {
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                sh "mvn clean package -DskipTests"
+            }
+
+            post {
+                success {
+                    sh"Successfully built the project"
+                }
+            }
+        }
+    }
+}
