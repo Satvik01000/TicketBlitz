@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build with Maven') {
             steps {
+                dir('TicketBlitzBackend')
                 sh 'mvn clean package -DskipTests'
             }
             post {
