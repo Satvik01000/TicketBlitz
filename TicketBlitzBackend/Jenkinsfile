@@ -2,18 +2,18 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build with Maven') {
             steps {
                 sh 'cd TicketBlitzBackend && mvn clean package -DskipTests'
             }
-            post {
-                success {
-                    echo 'Maven build successful'
-                }
-                failure {
-                    echo 'Maven build failed'
-                }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'cd TicketBlitzBackend && docker build -t ticketblitz:latest .'
             }
         }
+
     }
 }
