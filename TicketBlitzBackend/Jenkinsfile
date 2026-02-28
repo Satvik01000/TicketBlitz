@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "yourusername/ticketblitz"
+        DOCKER_IMAGE = "satvik0100/ticketblitz"
         DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
 
