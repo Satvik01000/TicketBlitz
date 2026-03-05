@@ -12,9 +12,9 @@ A high-concurrency ticket booking system designed to handle flash sales without 
 ## 🛠️ Tech Stack
 
 * **Language:** Java 21, Spring Boot 3
-* **Database:** PostgreSQL 15
+* **Database:** PostgreSQL
 * **Caching/Locking:** Redis (Redisson)
-* **DevOps:** Docker, Google Cloud Run
+* **DevOps:** Docker, Google Cloud Run, Jenkins
 * **Testing:** Apache JMeter
 
 ## 📊 Benchmark Results
